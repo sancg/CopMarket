@@ -24,18 +24,25 @@ const Shops = [
         await page.textContent('div[class*="styles__ProductsHeader"] h1')
       )?.trim();
 
-      const getProducts = await page.$$eval($productSelector, (allProducts) => {
-        const data = [];
-        allProducts.forEach((product) => {
-          const title = product.querySelector('p.prod__name')?.innerText;
-          const price = product.querySelector('p.base__price')?.innerText;
-          const img = product.querySelector('img.prod__figure__img')?.src;
-          data.push({ title, price, img });
-        });
-        return data;
-      });
+      // TODO: Existe una API para extraer mayor información sobre productos "https://nextgentheadless.instaleap.io/api/v3"
 
-      this.products.push({ category: getCategory, results: getProducts });
+      const getProducts = await page.$$eval(
+        $productSelector,
+        (allProducts, getCategory) => {
+          const data = [];
+          getCategory = getCategory.replace(/\(.*\)/i, '');
+          allProducts.forEach((product) => {
+            const title = product.querySelector('p.prod__name')?.innerText;
+            const price = product.querySelector('p.base__price')?.innerText;
+            const img = product.querySelector('img.prod__figure__img')?.src;
+            data.push({ title, price, img, category: getCategory });
+          }, getCategory);
+          return data;
+        },
+        getCategory
+      );
+      // console.log(getProducts);
+      this.products = this.products.concat(getProducts);
     },
   },
   {
@@ -55,24 +62,30 @@ const Shops = [
       await page.waitForTimeout(1000);
       const getCategory = (await page.textContent('h1.page-title'))?.trim();
 
-      const getProducts = await page.$$eval($productSelector, (allProducts) => {
-        const data = [];
-        allProducts.forEach((product) => {
-          const title = product.querySelector('a.product-item-link')?.innerText;
-          const price =
-            product.querySelector('span.special-price .price')?.innerText ??
-            product.querySelector('.price-final_price .price')?.innerText;
+      const getProducts = await page.$$eval(
+        $productSelector,
+        (allProducts, getCategory) => {
+          const data = [];
+          getCategory = getCategory.replace(/\(.*\)/i, '');
+          allProducts.forEach((product) => {
+            const title = product.querySelector('a.product-item-link')?.innerText;
+            const url = product.querySelector('a.product-item-link')?.href;
+            const price =
+              product.querySelector('span.special-price .price')?.innerText ??
+              product.querySelector('.price-final_price .price')?.innerText;
 
-          const img = product
-            .querySelector('img.product-image-photo')
-            ?.getAttribute('data-original');
+            const img = product
+              .querySelector('img.product-image-photo')
+              ?.getAttribute('data-original');
 
-          data.push({ title, price, img });
-        });
-        return data;
-      });
+            data.push({ title, url, price, img, category: getCategory });
+          });
+          return data;
+        },
+        getCategory
+      );
 
-      this.products.push({ category: getCategory, results: getProducts });
+      this.products = getProducts;
     },
   },
 ];
@@ -81,7 +94,7 @@ void (async () => {
   /* -----------  Browser setup ----------- */
   const browser = await chromium.launch({
     headless: false,
-    // slowMo: 30
+    // slowMo: 300,
   });
 
   // create new context
@@ -103,7 +116,8 @@ void (async () => {
     await page.goto(shop.url, { waitUntil: 'load' });
     try {
       await shop.extract(page);
-      await fs.writeFile(storagePath, JSON.stringify(Shops), 'utf-8');
+      // console.log(shop.products);
+      await fs.writeFile(storagePath, JSON.stringify(Shops, null, 2), 'utf-8');
     } catch (error) {
       console.error('Algo paso en la extraction de un vendor');
       throw error;
