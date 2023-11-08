@@ -1,7 +1,7 @@
 import { chromium } from 'playwright';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import rootDir from '../utils/rootDir.mjs';
+import { rootDir, storagePath } from '../utils/rootDir.mjs';
 
 const Shops = [
   {
@@ -68,7 +68,9 @@ const Shops = [
           const data = [];
           getCategory = getCategory.replace(/\(.*\)/i, '');
           allProducts.forEach((product) => {
-            const title = product.querySelector('a.product-item-link')?.innerText;
+            const title = product.querySelector(
+              'a.product-item-link'
+            )?.innerText;
             const url = product.querySelector('a.product-item-link')?.href;
             const price =
               product.querySelector('span.special-price .price')?.innerText ??
@@ -90,10 +92,10 @@ const Shops = [
   },
 ];
 
-void (async () => {
+export const ScrapStore = async () => {
   /* -----------  Browser setup ----------- */
   const browser = await chromium.launch({
-    headless: false,
+    // headless: false,
     // slowMo: 300,
   });
 
@@ -106,18 +108,20 @@ void (async () => {
   );
 
   /* ----------------------------------- */
+  const initTime = performance.now();
 
   const page = await context.newPage();
 
   // Structure for products in Shop
   // shop.products = [{ category: '', results: [] }];
-  const storagePath = path.join(rootDir, 'data', 'vendors.json');
+
+  const savePath = path.join(storagePath, 'vendors.json');
   for (const shop of Shops) {
     await page.goto(shop.url, { waitUntil: 'load' });
     try {
       await shop.extract(page);
       // console.log(shop.products);
-      await fs.writeFile(storagePath, JSON.stringify(Shops, null, 2), 'utf-8');
+      await fs.writeFile(savePath, JSON.stringify(Shops, null, 2), 'utf-8');
     } catch (error) {
       console.error('Algo paso en la extraction de un vendor');
       throw error;
@@ -128,4 +132,9 @@ void (async () => {
 
   await context.close();
   await browser.close();
-})();
+  const endTime = performance.now();
+  let sec = (endTime - initTime) / 1000;
+  sec = sec.toFixed(2);
+  console.log(`\x1b[36mTime lapse -> ${sec} seconds`);
+};
+await ScrapStore();
