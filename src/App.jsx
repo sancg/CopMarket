@@ -1,10 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
 import './App.css';
+import Compare from './Compare';
 
-function App() {
-  const [count, setCount] = useState(0);
+const App = () => {
+    // Example of Fetching data
+    // const [data, setData] = useState({});
+    // useEffect(() => {
+    //     fetch('http://localhost:1234/')
+    //         .then((data) => {
+    //             return data.json();
+    //         })
+    //         .then((d) => {
+    //             console.log(d);
+    //             setData(d);
+    //         });
 
-  return <div>Hello World</div>;
-}
+    //     return () => {};
+    // }, []);
+
+    return (
+        <main>
+            <Compare />
+        </main>
+    );
+};
 
 export default App;
