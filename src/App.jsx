@@ -1,41 +1,24 @@
-import { useEffect, useState } from 'react';
-
-import './App.css';
 import Compare from './components/Compare';
-import {
-  Route,
-  RouterProvider,
-  createBrowserRouter,
-  createRoutesFromElements,
-} from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Layout from './pages/Layout';
 import NotFound from './pages/NotFound';
+import LayoutNavigation from './pages/Layout/Navigation';
+import Store from './pages/Store';
 
 const App = () => {
-  // Example of Fetching data
-  // const [data, setData] = useState({});
-  // useEffect(() => {
-  //     fetch('http://localhost:1234/')
-  //         .then((data) => {
-  //             return data.json();
-  //         })
-  //         .then((d) => {
-  //             console.log(d);
-  //             setData(d);
-  //         });
-
-  //     return () => {};
-  // }, []);
-
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route path="/" element={<Layout />}>
-        <Route path="d1" element={<Compare />} />
-        <Route path="*" element={<NotFound />} />
-      </Route>
-    )
+  return (
+    <div className="relative h-[100dvh] bg-slate-300/10 overflow-x-hidden">
+      <Router>
+        <LayoutNavigation />
+        <Routes>
+          <Route path="/" element={<Compare />} />
+          <Route path="/compare" element={<Compare />} />
+          <Route path="/search/:store" element={<Store />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
+    </div>
   );
-  return <RouterProvider router={router} />;
 };
 
 export default App;

@@ -6,10 +6,10 @@ import { Outlet } from 'react-router-dom';
 
 const Layout = () => {
   return (
-    <div className="relative h-[100dvh]">
-      <LayoutNavigation />
+    <div className="">
+      {/* <LayoutNavigation /> */}
       <Content />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
