@@ -1,33 +1,22 @@
 import React from 'react';
 import './home.css';
-import { Link } from 'react-router-dom';
+import Vendor from '../components/Vendor';
 
+import { stores } from '../utils/constants';
 const LayoutHome = () => {
   return (
     <>
       <section className="marcas">
-        <div className="marcas__container">
-          <div className="encabezado">
+        <div className="flex flex-col justify-center">
+          <div className="encabezado text-center text-main-800 sm:m-10">
             <h2 className="font-Montserrat font-bold">Fácil y cómodo</h2>
             <p>Empieza seleccionando uno de los mercado pradeños </p>
             <p>para buscar y comparar productos</p>
           </div>
-          <div className="imagenes">
-            <Link to="/vaquita" className="shadow-lg right-3 rounded-full">
-              <img src="/imagenes/vaquita.jpg" alt="vaquita" />
-            </Link>
-            <Link to="/d1" className="shadow-lg right-3 rounded-full">
-              <img src="/imagenes/D1.jpg" alt="d1" className="img2" />
-            </Link>
-            <Link to="/isimo" className="shadow-lg right-3 rounded-full">
-              <img src="/imagenes/Ísimo.jpg" alt="isimo" />
-            </Link>
-            <Link to="/mercaprado" className="shadow-lg right-3 rounded-full">
-              <img src="/imagenes/Mercaprado.jpg" alt="mercaprado" />
-            </Link>
-            <Link to="/maxioferta" className="shadow-lg right-3 rounded-full">
-              <img src="/imagenes/Maxioferta.jpg" alt="oferta" />
-            </Link>
+          <div className="relative flex flex-wrap justify-center items-center gap-4">
+            {stores.map((s) => {
+              return <Vendor key={s.vendor} props={{ ...s }} />;
+            })}
           </div>
         </div>
       </section>
