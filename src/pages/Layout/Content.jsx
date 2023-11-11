@@ -5,7 +5,7 @@ import LayoutHome from '../Home';
 
 const Content = () => {
   return (
-    <main className="col-start-2">
+    <main className="">
       <Outlet />
       <LayoutHome />
     </main>

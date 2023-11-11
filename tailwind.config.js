@@ -5,7 +5,17 @@ export default {
     fontFamily: {
       Montserrat: ['Montserrat'],
     },
-    extend: {},
+
+    extend: {
+      colors: {
+        main: {
+          800: '#2b4254',
+        },
+        gray: {
+          200: '#D5DAE1',
+        },
+      },
+    },
   },
   plugins: [],
 };
