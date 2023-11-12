@@ -1,11 +1,13 @@
 import React from 'react';
 import SearchBar from '../components/SearchBar';
+import { Outlet } from 'react-router-dom';
 
 const Store = () => {
   return (
-    <div>
+    <main>
       <SearchBar />
-    </div>
+      <Outlet />
+    </main>
   );
 };
 

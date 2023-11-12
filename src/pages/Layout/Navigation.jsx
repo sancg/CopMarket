@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 const LayoutNavigation = () => {
   return (
-    <header className="col-span-full flex justify-between text-main-800 px-6 items-center mb-2">
+    <header className="col-span-full flex justify-between text-main-800 px-6 items-center mb-2 max-w-7xl md:mx-auto">
       <NavLink to="/" className="font-bold text-2xl">
         <p className="text-center rounded-lg bg-transparent">CopMarket</p>
       </NavLink>
@@ -13,9 +13,7 @@ const LayoutNavigation = () => {
             <NavLink
               to="/"
               className={({ isActive }) =>
-                isActive
-                  ? 'text-indigo-400 underline decoration-double'
-                  : 'text-main-800'
+                isActive ? 'text-indigo-400 underline decoration-double' : 'text-main-800'
               }
             >
               Inicio
@@ -25,9 +23,7 @@ const LayoutNavigation = () => {
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                isActive
-                  ? 'text-indigo-400 underline decoration-double'
-                  : 'text-main-800'
+                isActive ? 'text-indigo-400 underline decoration-double' : 'text-main-800'
               }
             >
               Sobre Nosotros

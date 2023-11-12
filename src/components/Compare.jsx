@@ -1,4 +1,4 @@
-import { Product } from './Product';
+import CompareProduct from './CompareProduct';
 import data from '../../backend/data/vendors.json';
 
 const Compare = () => {
@@ -13,12 +13,12 @@ const Compare = () => {
         !isCompare ? baseClasses : baseClasses + 'h-4/5 sm:gap-2 sm:m-5 md:mx-auto md:my-0 '
       }
     >
-      <Product vendors={d1} />
+      <CompareProduct {...d1} />
 
       {!isCompare || (
         <>
           <hr className="my-2 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-25 sm:my-4 dark:opacity-100" />
-          <Product vendors={comp} />
+          <CompareProduct {...comp} />
         </>
       )}
     </section>

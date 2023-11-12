@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Product = ({ vendors: { vendor: vendor, products } }) => {
+const CompareProduct = ({ products, vendor }) => {
   return (
     <div className="flex justify-center items-center  flex-col sm:flex-row sm:gap-2  sm:max-w-2xl">
       <div className="flex flex-col items-center">
@@ -20,11 +20,13 @@ export const Product = ({ vendors: { vendor: vendor, products } }) => {
 
       <div className="flex flex-col gap-2 m-2 w-2/3 sm:w-auto">
         <p>{vendor}</p>
-        <p className="text-md font-semibold text-cyan-900 sm:text-2xl">{products[0].title}</p>
-        <p className="text-sm font-bold text-white bg-cyan-900 rounded-lg px-2 py-1 w-max sm:text-lg">
+        <p className="text-md font-semibold text-main-800 sm:text-2xl">{products[0].title}</p>
+        <p className="text-sm font-bold text-white bg-main-800 rounded-lg px-2 py-1 w-max sm:text-lg">
           {products[0].price}
         </p>
       </div>
     </div>
   );
 };
+
+export default CompareProduct;
