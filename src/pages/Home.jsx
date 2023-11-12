@@ -3,10 +3,10 @@ import './home.css';
 import Vendor from '../components/Vendor';
 
 import { stores } from '../utils/constants';
-const LayoutHome = () => {
+const Home = () => {
   return (
     <>
-      <section className="marcas">
+      <section className="marcas mx-5">
         <div className="flex flex-col justify-center">
           <div className="encabezado text-center text-main-800 sm:m-10">
             <h2 className="font-Montserrat font-bold">Fácil y cómodo</h2>
@@ -24,4 +24,4 @@ const LayoutHome = () => {
   );
 };
 
-export default LayoutHome;
+export default Home;
