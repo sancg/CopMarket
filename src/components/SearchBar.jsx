@@ -7,13 +7,12 @@ const SearchBar = () => {
    * @param {React.FormEvent} evt
    */
   const handleSubmit = (evt) => {
-    // evt.preventDefault();
+    evt.preventDefault();
     console.log(evt.target);
     console.log(searchText.current.value);
   };
   return (
     <form
-      action="products"
       method="get"
       className="flex justify-center items-center gap-1 mx-auto my-0 w-full px-6 sm:max-w-2xl"
       onSubmit={handleSubmit}
@@ -25,7 +24,7 @@ const SearchBar = () => {
         autoFocus={true}
         autoComplete="false"
         placeholder="Buscar producto"
-        className="bg-gray-200/10 shadow-lg p-2 rounded-lg w-[inherit] ring-indigo-400 ring-1"
+        className="bg-gray-200/10 shadow-lg p-2 rounded-lg w-[inherit] ring-indigo-400 ring-1 focus:outline-5 focus:outline-offset-1"
         ref={searchText}
       />
       <button type="submit">

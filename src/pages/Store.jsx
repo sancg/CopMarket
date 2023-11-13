@@ -4,10 +4,10 @@ import { Outlet } from 'react-router-dom';
 
 const Store = () => {
   return (
-    <main>
+    <>
       <SearchBar />
       <Outlet />
-    </main>
+    </>
   );
 };
 

@@ -1,6 +1,14 @@
 const CardProduct = ({ products, vendor }) => {
   const random = Math.floor(Math.random() * 4);
-  console.log(random);
+
+  /**
+   *
+   * @param {React.MouseEvent} evt click event register
+   */
+  const handleCompareBtn = (evt) => {
+    console.log(evt.currentTarget.parentElement);
+  };
+
   return (
     <article className="flex justify-center items-center flex-col p-4 mx-5 min-h-[350px] shadow-md rounded-lg max-h-96 outline outline-indigo-500 outline-offset-2 outline-1 sm:min-w-full sm:mx-auto sm:max-w-xs">
       <div className="flex flex-col items-center">
@@ -26,7 +34,10 @@ const CardProduct = ({ products, vendor }) => {
           <p className="text-sm font-bold rounded-lg px-2 py-1 w-max ring-indigo-500 ring-1 sm:text-lg">
             {products[random].price}
           </p>
-          <button className=" text-sm font-bold text-white bg-main-800 rounded-lg px-2 py-1 w-max sm:text-lg shadow-lg shadow-main-800/40 hover:shadow-indigo-500/20 hover:bg-indigo-500">
+          <button
+            onClick={handleCompareBtn}
+            className=" text-sm font-bold text-white bg-main-800 rounded-lg px-2 py-1 w-max sm:text-lg shadow-lg shadow-main-800/40 hover:shadow-indigo-500/20 hover:bg-indigo-500 focus:outline-4 focus:outline-offset-2"
+          >
             Comparar
           </button>
         </div>
