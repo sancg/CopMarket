@@ -20,7 +20,14 @@ const requested = async ({ params, request }) => {
 
 const loadVendor = async ({ request, params }) => {
   const query = new URL(request.url).searchParams.get('q');
-  if (typeof query !== 'string') return dummyData; // Initial load
+  if (typeof query !== 'string') {
+    // TODO: Traer datos de Relleno para los correspondientes mercados
+    return null; // Initial load
+  }
+
+  if (query === '') {
+    return 'Primero busque un producto para comparar';
+  }
 
   console.log({ params, request, query });
   return dummyData;

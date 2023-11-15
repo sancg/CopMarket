@@ -3,7 +3,6 @@ import CardProduct from '../CardProduct';
 
 const GridProducts = (props) => {
   const { products, vendor } = props;
-
   const lastUpdate = '2023-11-13';
   return (
     <>
