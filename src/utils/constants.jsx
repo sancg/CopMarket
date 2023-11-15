@@ -3,13 +3,13 @@ import img_vaquita from '../assets/images/vaquita.jpg';
 import img_isimo from '../assets/images/isimo.jpg';
 
 export const stores = [
-  { vendor: 'd1', link: '/d1', img: img_d1 },
+  { vendor: 'd1', link: '/search/d1', img: img_d1 },
   {
     vendor: 'vaquita',
-    link: '/vaquita',
+    link: '/search/vaquita',
     img: img_vaquita
   },
-  { vendor: 'isimo', link: '/isimo', img: img_isimo }
+  { vendor: 'isimo', link: '/search/isimo', img: img_isimo }
   // {
   //   vendor: 'merca-prado',
   //   link: '/search/merca-prado',
