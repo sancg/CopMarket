@@ -9,27 +9,36 @@ import Home from './pages/Home';
 import Store from './pages/Store';
 import NotFound from './pages/NotFound';
 import Compare from './components/Compare';
-import GridProducts from './components/Layout/GridProducts';
 import Layout from './components/Layout/Layout';
+
+import dummyData from '../backend/data/vendors.json';
 
 const requested = async ({ params, request }) => {
   console.log({ params, request });
   return request.redirect('/');
 };
 
+const loadVendor = async ({ request, params }) => {
+  const query = new URL(request.url).searchParams.get('q');
+  if (typeof query !== 'string') return dummyData; // Initial load
+
+  console.log({ params, request, query });
+  return dummyData;
+};
+
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<Layout />}>
-        <Route index={true} element={<Home />} />
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
         <Route
           path="/search/:store"
-          // loader={() => {}}
+          loader={loadVendor}
           action={requested}
           element={<Store />}
-          errorElement={
-            <div className="mx-6">Mi amigo me dijo que la app se descoloco 🕵🏻‍♂️</div>
-          }
+          // errorElement={
+          //   <div className="mx-6">Mi amigo me dijo que la app se descoloco 🕵🏻‍♂️</div>
+          // }
         >
           {/* <Route path="products" element={<GridProducts />} /> */}
         </Route>

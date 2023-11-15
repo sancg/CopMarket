@@ -1,7 +1,7 @@
 import React from 'react';
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import { Form } from 'react-router-dom';
-const SearchBar = () => {
+const SearchBar = (props) => {
   const searchText = React.useRef();
   /**
    * Function that triggers the Backend API
@@ -9,9 +9,8 @@ const SearchBar = () => {
    */
   const handleSubmit = (evt) => {
     // evt.preventDefault();
-    console.log(evt.target);
+    // console.log(evt.target);
     console.log(searchText.current.value);
-    console.log(window.location.pathname);
   };
   return (
     <Form
@@ -25,7 +24,7 @@ const SearchBar = () => {
         id="q"
         autoFocus={true}
         autoComplete="false"
-        placeholder="Buscar producto"
+        placeholder={`Buscar producto en ${props.vendor}`}
         className="bg-gray-200/10 shadow-lg p-2 rounded-lg w-[inherit] focus:outline-5 focus:outline-offset-1"
         ref={searchText}
       />
