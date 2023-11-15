@@ -1,12 +1,11 @@
-import React from 'react';
 import SearchBar from '../components/SearchBar';
-import { Outlet } from 'react-router-dom';
+import GridProducts from '../components/Layout/GridProducts';
 
 const Store = () => {
   return (
     <>
       <SearchBar />
-      <Outlet />
+      <GridProducts />
     </>
   );
 };

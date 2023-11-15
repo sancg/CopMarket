@@ -10,16 +10,16 @@ const CardProduct = ({ products, vendor }) => {
   };
 
   return (
-    <article className="flex justify-center items-center flex-col p-4 mx-5 min-h-[350px] shadow-md rounded-lg max-h-96 outline outline-indigo-500 outline-offset-2 outline-1 sm:min-w-full sm:mx-auto sm:max-w-xs">
+    <article className="flex justify-center items-center flex-col p-4 mx-5 shadow-md rounded-lg max-h-96 sm:min-w-full sm:mx-auto sm:max-w-xs">
       <div className="flex flex-col items-center">
-        <figure className="w-48 sm:h-auto">
+        <picture className="aspect-square w-48 sm:h-auto">
           <img
-            className="rounded-lg shadow-lg sm:w-60"
+            className="object-cover rounded-lg shadow-lg sm:w-60"
             src={products[random].img}
             alt="product img"
             srcSet=""
           />
-        </figure>
+        </picture>
       </div>
 
       <div className="flex flex-col gap-2 m-2 w-2/3 sm:w-auto">

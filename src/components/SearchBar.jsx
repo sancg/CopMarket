@@ -1,5 +1,6 @@
 import React from 'react';
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import { Form } from 'react-router-dom';
 const SearchBar = () => {
   const searchText = React.useRef();
   /**
@@ -7,14 +8,15 @@ const SearchBar = () => {
    * @param {React.FormEvent} evt
    */
   const handleSubmit = (evt) => {
-    evt.preventDefault();
+    // evt.preventDefault();
     console.log(evt.target);
     console.log(searchText.current.value);
+    console.log(window.location.pathname);
   };
   return (
-    <form
+    <Form
       method="get"
-      className="flex justify-center items-center gap-1 mx-auto my-0 w-full px-6 sm:max-w-2xl"
+      className="flex justify-center items-center gap-1 mx-auto mt-5 w-full px-6 sm:max-w-2xl"
       onSubmit={handleSubmit}
     >
       <input
@@ -24,13 +26,13 @@ const SearchBar = () => {
         autoFocus={true}
         autoComplete="false"
         placeholder="Buscar producto"
-        className="bg-gray-200/10 shadow-lg p-2 rounded-lg w-[inherit] ring-indigo-400 ring-1 focus:outline-5 focus:outline-offset-1"
+        className="bg-gray-200/10 shadow-lg p-2 rounded-lg w-[inherit] focus:outline-5 focus:outline-offset-1"
         ref={searchText}
       />
       <button type="submit">
-        <MagnifyingGlassIcon className="w-8 h-10 text-indigo-500" />
+        <MagnifyingGlassIcon className="w-full h-7 text-indigo-500" />
       </button>
-    </form>
+    </Form>
   );
 };
 

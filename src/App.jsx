@@ -9,11 +9,12 @@ import Home from './pages/Home';
 import Store from './pages/Store';
 import NotFound from './pages/NotFound';
 import Compare from './components/Compare';
-import GridProducts from './pages/Layout/GridProducts';
-import Layout from './pages/Layout/Layout';
+import GridProducts from './components/Layout/GridProducts';
+import Layout from './components/Layout/Layout';
 
 const requested = async ({ params, request }) => {
   console.log({ params, request });
+  return request.redirect('/');
 };
 
 const App = () => {
@@ -21,8 +22,16 @@ const App = () => {
     createRoutesFromElements(
       <Route path="/" element={<Layout />}>
         <Route index={true} element={<Home />} />
-        <Route path="/search/:store" element={<Store />}>
-          <Route path="products" action={requested} element={<GridProducts />} />
+        <Route
+          path="/search/:store"
+          // loader={() => {}}
+          action={requested}
+          element={<Store />}
+          errorElement={
+            <div className="mx-6">Mi amigo me dijo que la app se descoloco 🕵🏻‍♂️</div>
+          }
+        >
+          {/* <Route path="products" element={<GridProducts />} /> */}
         </Route>
         <Route path="compare" element={<Compare />} />
         <Route path="*" element={<NotFound />} />
