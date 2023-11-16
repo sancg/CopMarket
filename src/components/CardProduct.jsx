@@ -1,6 +1,7 @@
-const CardProduct = ({ products, vendor }) => {
-  const random = Math.floor(Math.random() * 4);
+import React from 'react';
 
+const CardProduct = (props) => {
+  const { product, vendor } = props;
   /**
    *
    * @param {React.MouseEvent} evt click event register
@@ -10,29 +11,29 @@ const CardProduct = ({ products, vendor }) => {
   };
 
   return (
-    <article className="flex justify-center items-center flex-col p-4 mx-5 shadow-md rounded-lg max-h-96 sm:min-w-full sm:mx-auto sm:max-w-xs">
+    <article className="flex justify-center items-center flex-col gap-2 p-4 shadow-md rounded-lg max-h-96 sm:min-w-full sm:mx-auto sm:max-w-xs sm:gap-4 hover:shadow-xl">
       <div className="flex flex-col items-center">
         <picture className="aspect-square w-48 sm:h-auto">
           <img
-            className="object-cover rounded-lg shadow-lg sm:w-60"
-            src={products[random].img}
-            alt="product img"
+            className="object-cover rounded-xl shadow-md sm:w-60"
+            src={product.img}
+            alt={product.name}
             srcSet=""
           />
         </picture>
       </div>
 
-      <div className="flex flex-col gap-2 m-2 w-2/3 sm:w-auto">
-        <p>{vendor}</p>
+      <div className="flex flex-col gap-2 sm:w-auto">
+        <p className="text-indigo-500 font-semibold">{vendor}</p>
         <p
-          title={products[random].title}
-          className="text-md font-semibold text-main-800 text-ellipsis overflow-hidden text-md max-h-12 relative "
+          title={product.title}
+          className="text-md text-main-800 text-ellipsis overflow-hidden text-md max-h-12 relative "
         >
-          {products[random].title}
+          {product.title}
         </p>
         <div className="flex justify-between">
           <p className="text-sm font-bold rounded-lg px-2 py-1 w-max ring-indigo-500 ring-1 sm:text-lg">
-            {products[random].price}
+            {product.price}
           </p>
           <button
             onClick={handleCompareBtn}

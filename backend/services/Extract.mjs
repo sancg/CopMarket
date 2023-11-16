@@ -8,7 +8,6 @@ const Shops = [
     vendor: 'D1',
     baseUrl: 'https://domicilios.tiendasd1.com/',
     products: [],
-    returnMessage: '',
     /**
      * This function contains the Fetch API Request for products
      * @async
@@ -85,14 +84,11 @@ const Shops = [
         const foundProducts = _responseProduct?.[0].data?.searchProducts?.products ?? null;
         // console.log(foundProducts);
         if (foundProducts?.length < 1) {
-          return 'No encontramos resultados para tu búsqueda.';
+          return [];
         }
         return foundProducts;
       }, query);
-
-      console.log(resultProducts);
-      if (typeof resultProducts === 'string') this.returnMessage = resultProducts;
-      else this.products = resultProducts;
+      this.products = resultProducts;
     }
   }
 ];
@@ -113,18 +109,15 @@ export const ScrapStore = async () => {
   );
 
   /* ----------------------------------- */
-  const initTime = performance.now();
+  // const initTime = performance.now();
 
   const page = await context.newPage();
 
   // Structure for products in Shop
-  // shop.products = [{ category: '', results: [] }];
-
   const savePath = path.join(storagePath, 'test.json');
   for (const shop of Shops) {
     try {
-      await shop.extract(page, 'leche');
-      console.log(shop);
+      await shop.extract(page, 'saltin');
       await fs.writeFile(savePath, JSON.stringify(Shops, null, 2), 'utf-8');
     } catch (error) {
       console.error('Algo paso en la extraction de un vendor');
@@ -136,9 +129,9 @@ export const ScrapStore = async () => {
 
   await context.close();
   await browser.close();
-  const endTime = performance.now();
-  let sec = (endTime - initTime) / 1000;
-  sec = sec.toFixed(2);
-  console.log(`\x1b[36mTime lapse -> ${sec} seconds`);
+  // const endTime = performance.now();
+  // let sec = (endTime - initTime) / 1000;
+  // sec = sec.toFixed(2);
+  // console.log(`\x1b[36mTime lapse -> ${sec} seconds`);
 };
 await ScrapStore();
