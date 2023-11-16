@@ -2,7 +2,8 @@ import {
   Route,
   RouterProvider,
   createBrowserRouter,
-  createRoutesFromElements
+  createRoutesFromElements,
+  redirect
 } from 'react-router-dom';
 
 import Home from './pages/Home';
@@ -12,6 +13,7 @@ import Compare from './components/Compare';
 import Layout from './components/Layout/Layout';
 
 import dummyData from '../backend/data/vendors.json';
+import { stores } from './utils/constants';
 
 const requested = async ({ params, request }) => {
   console.log({ params, request });
@@ -20,8 +22,12 @@ const requested = async ({ params, request }) => {
 
 const loadVendor = async ({ request, params }) => {
   const query = new URL(request.url).searchParams.get('q');
+  const supportedStore = !!stores.find((s) => s.vendor === params.store);
+  if (!supportedStore) return redirect('/');
+
   if (typeof query !== 'string') {
     // TODO: Traer datos de Relleno para los correspondientes mercados
+    // Esta es la primera carga del componente al entrar a la ruta
     return null; // Initial load
   }
 
@@ -29,8 +35,11 @@ const loadVendor = async ({ request, params }) => {
     return 'Primero busque un producto para comparar';
   }
 
-  console.log({ params, request, query });
-  return dummyData;
+  const store = params?.store.toLowerCase();
+  console.log({ store, request, query });
+  const _req = await fetch(`http://localhost:1234/vendor/${store}/${query}`);
+  const _res = await _req.json();
+  return _res;
 };
 
 const App = () => {
@@ -43,9 +52,6 @@ const App = () => {
           loader={loadVendor}
           action={requested}
           element={<Store />}
-          // errorElement={
-          //   <div className="mx-6">Mi amigo me dijo que la app se descoloco 🕵🏻‍♂️</div>
-          // }
         >
           {/* <Route path="products" element={<GridProducts />} /> */}
         </Route>
