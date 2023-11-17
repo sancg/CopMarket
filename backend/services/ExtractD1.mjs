@@ -142,10 +142,18 @@ export const ExtractD1 = async (query = '') => {
 
   // Structure for products in Shop
   const savePath = path.join(storagePath, `${shop.vendor}_${query}.json`);
+  let result = {};
 
   try {
     await shop.extract(page, query);
-    // await fs.writeFile(savePath, JSON.stringify(shop.products, null, 2), 'utf-8');
+    result = {
+      lastUpdate: new Date().toLocaleDateString('es-CO', {
+        hour: '2-digit',
+        minute: '2-digit'
+      }),
+      data: shop.products
+    };
+    await fs.writeFile(savePath, JSON.stringify(result, null, 2), 'utf-8');
   } catch (error) {
     console.error('Algo paso en la extraction de un vendor');
     return [];
@@ -159,5 +167,5 @@ export const ExtractD1 = async (query = '') => {
   // let sec = (endTime - initTime) / 1000;
   // sec = sec.toFixed(2);
   // console.log(`\x1b[36mTime lapse -> ${sec} seconds`);
-  return shop.products;
+  return result;
 };
