@@ -5,15 +5,19 @@ import { useLoaderData, useParams } from 'react-router-dom';
 import cart from '../assets/images/shoppingCart.png';
 const Store = () => {
   const { store } = useParams();
-  const dummyData = useLoaderData();
+  const response = useLoaderData();
   return (
     <>
       <SearchBar vendor={store} />
-      {dummyData && typeof dummyData === 'object' ? (
-        <GridProducts products={dummyData[0].products} vendor={store} />
+      {response && typeof response === 'object' ? (
+        <GridProducts
+          products={response.data}
+          vendor={store}
+          lastUpdate={response.lastUpdate}
+        />
       ) : (
         <div className="flex flex-col mx-auto my-5 w-full text-center">
-          <p>{dummyData ?? 'No hay productos para mostrar'}</p>
+          <p>{response ?? 'No hay productos para mostrar'}</p>
           <img
             className="aspect-square w-60 h-full self-center"
             src={cart}

@@ -11,27 +11,7 @@ import NotFound from './pages/NotFound';
 import Compare from './components/Compare';
 import Layout from './components/Layout/Layout';
 
-import dummyData from '../backend/data/vendors.json';
-
-const requested = async ({ params, request }) => {
-  console.log({ params, request });
-  return request.redirect('/');
-};
-
-const loadVendor = async ({ request, params }) => {
-  const query = new URL(request.url).searchParams.get('q');
-  if (typeof query !== 'string') {
-    // TODO: Traer datos de Relleno para los correspondientes mercados
-    return null; // Initial load
-  }
-
-  if (query === '') {
-    return 'Primero busque un producto para comparar';
-  }
-
-  console.log({ params, request, query });
-  return dummyData;
-};
+import { loadVendor } from './services/loadVendor';
 
 const App = () => {
   const router = createBrowserRouter(
@@ -41,11 +21,12 @@ const App = () => {
         <Route
           path="/search/:store"
           loader={loadVendor}
-          action={requested}
           element={<Store />}
-          // errorElement={
-          //   <div className="mx-6">Mi amigo me dijo que la app se descoloco 🕵🏻‍♂️</div>
-          // }
+          errorElement={
+            <div className="mx-6">
+              La petición no devolvió lo que esperaba, verificar si el servidor esta activo
+            </div>
+          }
         >
           {/* <Route path="products" element={<GridProducts />} /> */}
         </Route>

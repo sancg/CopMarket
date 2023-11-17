@@ -8,8 +8,8 @@ export const stores = [
     vendor: 'vaquita',
     link: '/search/vaquita',
     img: img_vaquita
-  },
-  { vendor: 'isimo', link: '/search/isimo', img: img_isimo }
+  }
+  // { vendor: 'isimo', link: '/search/isimo', img: img_isimo }
   // {
   //   vendor: 'merca-prado',
   //   link: '/search/merca-prado',

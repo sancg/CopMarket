@@ -1,3 +1,9 @@
+const supportedVendors = {
+  d1: {},
+  isimo: false,
+  vaquita: false
+};
+
 /**
  * Get all Products by Store
  * @param {import('express').Request} req The request context of express
@@ -19,9 +25,19 @@ const getVendor = (req, res, next) => {
  *
  * @returns {} json to the client
  */
-const getVendorProduct = (req, res, next) => {
+const getVendorProduct = async (req, res, next) => {
   const { name, query } = req.params;
-  res.json({ message: `Tienda ${name} - Producto buscado: ${query}` });
+  const { ExtractD1 } = await import('../services/ExtractD1.mjs');
+
+  if (!supportedVendors[name]) {
+    return res.status(404).json({ message: `Tienda ${name} no encontrada` });
+  }
+
+  ExtractD1(query)
+    .then((prods) => {
+      res.json(prods);
+    })
+    .catch((e) => console.log(e));
 };
 
 module.exports = {
