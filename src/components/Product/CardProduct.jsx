@@ -1,5 +1,3 @@
-import React from 'react';
-
 const CardProduct = (props) => {
   const { product, vendor } = props;
   /**
@@ -11,7 +9,7 @@ const CardProduct = (props) => {
   };
 
   return (
-    <article className="flex justify-center items-center flex-col gap-2 p-4 shadow-md rounded-lg max-h-96 sm:min-w-full sm:mx-auto sm:max-w-xs sm:gap-4 hover:shadow-xl">
+    <article className="flex justify-center items-center flex-col gap-2 p-4 shadow-md rounded-lg max-h-96 sm:min-w-full sm:mx-auto sm:max-w-xs sm:gap-4 hover:shadow-xl hover:shadow-indigo-400/20">
       <div className="flex flex-col items-center">
         <picture className="aspect-square w-48 sm:h-auto">
           <img
@@ -23,7 +21,7 @@ const CardProduct = (props) => {
         </picture>
       </div>
 
-      <div className="flex flex-col gap-2 sm:w-auto">
+      <div className="flex flex-col gap-2 w-full">
         <p className="text-indigo-500 font-semibold">{vendor}</p>
         <p
           title={product.title}
@@ -31,6 +29,7 @@ const CardProduct = (props) => {
         >
           {product.title}
         </p>
+
         <div className="flex justify-between">
           <p className="text-sm font-bold rounded-lg px-2 py-1 w-max ring-indigo-500 ring-1 sm:text-lg">
             {product.price}

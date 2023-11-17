@@ -1,4 +1,4 @@
-import CompareProduct from './CompareProduct';
+import CompareProduct from './Product/CompareProduct';
 import data from '../../backend/data/vendors.json';
 
 const Compare = () => {
