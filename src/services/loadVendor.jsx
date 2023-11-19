@@ -31,5 +31,6 @@ export const loadVendor = async ({ request, params }) => {
     return `Error ${_req.status}: ${_res}`;
   }
 
+  if (typeof _res.data === 'string') return _res.data;
   return _res;
 };

@@ -50,7 +50,7 @@ const shop = {
    * @param {import('playwright').Page} page
    */
   extract: async function (page, query) {
-    await page.goto(`${this.baseUrl}search?name=${query}`, { waitUntil: 'load' });
+    await page.goto(`${this.baseUrl}search?name=${query}`);
 
     const resultProducts = await page.evaluate(async (query) => {
       const _reqProduct = await fetch('https://nextgentheadless.instaleap.io/api/v3', {
@@ -85,8 +85,7 @@ const shop = {
       const length = foundProducts?.length;
       console.log(length);
       if (!length) {
-        console.log('No search found');
-        return [];
+        return 'Producto no encontrado';
       }
 
       const distillProducts = foundProducts.map((prod) => {

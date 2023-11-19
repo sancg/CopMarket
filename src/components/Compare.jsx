@@ -1,5 +1,5 @@
 import CompareProduct from './Product/CompareProduct';
-import data from '../../backend/data/vendors.json';
+// import data from '../../backend/data/vendors.json';
 
 const Compare = () => {
   // TODO: Devolver una tienda en concreto, después de seleccionar en cual buscar.

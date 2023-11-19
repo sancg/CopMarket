@@ -13,10 +13,13 @@ const SearchBar = (props) => {
     console.log(searchText.current.value);
   };
   return (
-    <search role="search">
+    <search
+      role="search"
+      className="sticky w-full top-0 z-10 bg-white/30 py-5 backdrop-blur-sm"
+    >
       <Form
         method="get"
-        className="flex justify-center items-center gap-1 mx-auto mt-5 w-full px-6 sm:max-w-2xl"
+        className="flex justify-center items-center gap-1 mx-auto w-full px-6 sm:max-w-2xl"
         onSubmit={handleSubmit}
       >
         <input
@@ -26,7 +29,7 @@ const SearchBar = (props) => {
           autoFocus={true}
           autoComplete="false"
           placeholder={`Buscar producto en ${props.vendor}`}
-          className="bg-gray-200/10 shadow-lg p-2 rounded-lg w-[inherit] focus:outline-5 focus:outline-offset-1"
+          className="bg-gray-50 shadow-lg p-2 rounded-lg w-[inherit] focus:outline-5 focus:outline-offset-1"
           ref={searchText}
         />
         <button type="submit">
