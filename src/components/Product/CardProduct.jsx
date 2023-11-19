@@ -1,10 +1,14 @@
+import { useNavigate } from 'react-router-dom';
+
 const CardProduct = (props) => {
   const { product, vendor } = props;
+  const navigate = useNavigate();
   /**
    *
    * @param {React.MouseEvent} evt click event register
    */
   const handleCompareBtn = (evt) => {
+    navigate('/compare');
     console.log(evt.currentTarget.parentElement);
   };
 
