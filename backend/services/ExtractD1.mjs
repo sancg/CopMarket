@@ -50,7 +50,7 @@ const shop = {
    * @param {import('playwright').Page} page
    */
   extract: async function (page, query) {
-    await page.goto(`${this.baseUrl}search?name=${query}`, { waitUntil: 'load' });
+    await page.goto(`${this.baseUrl}search?name=${query}`);
 
     const resultProducts = await page.evaluate(async (query) => {
       const _reqProduct = await fetch('https://nextgentheadless.instaleap.io/api/v3', {
@@ -85,8 +85,7 @@ const shop = {
       const length = foundProducts?.length;
       console.log(length);
       if (!length) {
-        console.log('No search found');
-        return [];
+        return 'Producto no encontrado';
       }
 
       const distillProducts = foundProducts.map((prod) => {
@@ -113,12 +112,15 @@ const shop = {
  * Function to Open the navigator, scrap the products
  * @param {string} query Product searched
  * @returns {Promise<{
+ *  lastUpdate: number;
+ *  data:{
  *  title: string,
  *  url?: string,
  *  img?: string,
  *  price?: string
  *  category?: object[]
- * }[]|[]>}
+ *  }[]|[]
+ * }>}
  */
 export const ExtractD1 = async (query = '') => {
   /* -----------  Browser setup ----------- */
@@ -136,7 +138,7 @@ export const ExtractD1 = async (query = '') => {
   );
 
   /* ----------------------------------- */
-  // const initTime = performance.now();
+  const initTime = performance.now();
 
   const page = await context.newPage();
 
@@ -147,10 +149,7 @@ export const ExtractD1 = async (query = '') => {
   try {
     await shop.extract(page, query);
     result = {
-      lastUpdate: new Date().toLocaleDateString('es-CO', {
-        hour: '2-digit',
-        minute: '2-digit'
-      }),
+      lastUpdate: Date.now(),
       data: shop.products
     };
     await fs.writeFile(savePath, JSON.stringify(result, null, 2), 'utf-8');
@@ -163,9 +162,9 @@ export const ExtractD1 = async (query = '') => {
 
   await context.close();
   await browser.close();
-  // const endTime = performance.now();
-  // let sec = (endTime - initTime) / 1000;
-  // sec = sec.toFixed(2);
-  // console.log(`\x1b[36mTime lapse -> ${sec} seconds`);
+  const endTime = performance.now();
+  let sec = (endTime - initTime) / 1000;
+  sec = sec.toFixed(2);
+  console.log(`\x1b[36mTime lapse -> ${sec} seconds`);
   return result;
 };

@@ -1,7 +1,21 @@
+const { cacheFile } = require('./cacheProduct');
+
 const supportedVendors = {
-  d1: {},
-  isimo: false,
-  vaquita: false
+  d1: {
+    getProduct: async function (prodQuery) {
+      const { ExtractD1 } = await import('../services/ExtractD1.mjs');
+      const products = await ExtractD1(prodQuery);
+      return products;
+    }
+  },
+  vaquita: {
+    getProduct: async function (prodQuery) {
+      const { ExtractVaquita } = await import('../services/ExtractVaquita.mjs');
+      const products = await ExtractVaquita(prodQuery);
+      return products;
+    }
+  },
+  isimo: false
 };
 
 /**
@@ -27,17 +41,17 @@ const getVendor = (req, res, next) => {
  */
 const getVendorProduct = async (req, res, next) => {
   const { name, query } = req.params;
-  const { ExtractD1 } = await import('../services/ExtractD1.mjs');
 
   if (!supportedVendors[name]) {
-    return res.status(404).json({ message: `Tienda ${name} no encontrada` });
+    return res.status(404).json(`Tienda ${name} no encontrada`);
   }
 
-  ExtractD1(query)
-    .then((prods) => {
-      res.json(prods);
-    })
-    .catch((e) => console.log(e));
+  const hasCache = await cacheFile(name, query);
+  console.log(hasCache);
+  if (hasCache) return res.json(hasCache);
+
+  const returnProducts = await supportedVendors[name].getProduct(query);
+  res.json(returnProducts);
 };
 
 module.exports = {
