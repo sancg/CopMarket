@@ -3,6 +3,7 @@ import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import { Form } from 'react-router-dom';
 const SearchBar = (props) => {
   const searchText = React.useRef();
+
   /**
    * Function that triggers the Backend API
    * @param {React.FormEvent} evt
