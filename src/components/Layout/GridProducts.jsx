@@ -2,7 +2,6 @@ import CardProduct from '../Product/CardProduct';
 
 const GridProducts = (props) => {
   const { products, vendor, lastUpdate } = props;
-
   return (
     <>
       {products ? (
