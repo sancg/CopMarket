@@ -1,3 +1,6 @@
+### Testing folders
+**/data/*.json
+
 # Logs
 logs
 *.log

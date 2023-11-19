@@ -9,27 +9,24 @@ import Home from './pages/Home';
 import Store from './pages/Store';
 import NotFound from './pages/NotFound';
 import Compare from './components/Compare';
-import GridProducts from './components/Layout/GridProducts';
 import Layout from './components/Layout/Layout';
 import About from './pages/sobre-nosotros';
 
-const requested = async ({ params, request }) => {
-  console.log({ params, request });
-  return request.redirect('/');
-};
+import { loadVendor } from './services/loadVendor';
 
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<Layout />}>
-        <Route index={true} element={<Home />} />
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
         <Route
           path="/search/:store"
-          // loader={() => {}}
-          action={requested}
+          loader={loadVendor}
           element={<Store />}
           errorElement={
-            <div className="mx-6">Mi amigo me dijo que la app se descoloco 🕵🏻‍♂️</div>
+            <div className="mx-6">
+              La petición no devolvió lo que esperaba, verificar si el servidor esta activo
+            </div>
           }
         >
           {/* <Route path="products" element={<GridProducts />} /> */}
