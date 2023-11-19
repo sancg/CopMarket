@@ -11,6 +11,7 @@ import NotFound from './pages/NotFound';
 import Compare from './components/Compare';
 import GridProducts from './components/Layout/GridProducts';
 import Layout from './components/Layout/Layout';
+import About from './pages/sobre-nosotros';
 
 const requested = async ({ params, request }) => {
   console.log({ params, request });
@@ -33,6 +34,7 @@ const App = () => {
         >
           {/* <Route path="products" element={<GridProducts />} /> */}
         </Route>
+        <Route path="about" element={<About />} />
         <Route path="compare" element={<Compare />} />
         <Route path="*" element={<NotFound />} />
       </Route>
