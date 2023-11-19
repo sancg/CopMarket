@@ -24,11 +24,12 @@ export const loadVendor = async ({ request, params }) => {
       'Content-Type': 'application/json'
     }
   });
+  const _res = await _req.json();
 
   if (!_req.ok || _req.status === null) {
-    return 'Error en la petición del producto';
+    console.log(_req);
+    return `Error ${_req.status}: ${_res}`;
   }
 
-  const _res = await _req.json();
   return _res;
 };
