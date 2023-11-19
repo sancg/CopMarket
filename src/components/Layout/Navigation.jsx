@@ -54,8 +54,8 @@ const LayoutNavigation = () => {
               to="/"
               className={({ isActive }) =>
                 isActive
-                  ? 'underline py-2 px-3 text-indigo-600 rounded block hover:bg-gray-100'
-                  : 'block hover:underline py-2 px-3 text-gray-900 rounded hover:bg-gray-200/30 md:hover:bg-transparent md:border-0 hover:text-blue-700 '
+                  ? 'underline py-2 px-3 text-indigo-600 rounded block bg-indigo-100 hover:bg-gray-100'
+                  : 'block hover:underline py-2 px-3 text-gray-900 rounded hover:bg-gray-100 hover:text-indigo-700 '
               }
             >
               Home
@@ -66,8 +66,8 @@ const LayoutNavigation = () => {
               to="/about"
               className={({ isActive }) =>
                 isActive
-                  ? 'underline py-2 px-3 text-indigo-600 rounded block hover:bg-gray-100'
-                  : 'block hover:underline py-2 px-3 text-gray-900 rounded hover:bg-gray-200/30 md:hover:bg-transparent md:border-0 hover:text-blue-700 '
+                  ? 'underline py-2 px-3 text-indigo-600 rounded block bg-indigo-100 hover:bg-gray-100'
+                  : 'block hover:underline py-2 px-3 text-gray-900 rounded hover:bg-gray-100 hover:text-indigo-700 '
               }
             >
               Sobre Nosotros
